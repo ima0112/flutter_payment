@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_payment/stripe_payment.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,7 +16,9 @@ class HomePage extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text('Make Payment'),
-              onPressed: () {},
+              onPressed: () async {
+                await StripePaymnet().makePayment();
+              },
             ),
           ],
         ),
