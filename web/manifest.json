@@ -1,6 +1,6 @@
 {
-    "name": "flutter_stripe",
-    "short_name": "flutter_stripe",
+    "name": "flutter_payment",
+    "short_name": "flutter_payment",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
