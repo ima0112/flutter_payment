@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_payment/home_page.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
-void main() {
+void main() async {
+  //Initialize Flutter Binding
+  WidgetsFlutterBinding.ensureInitialized();
+
+  //Assign publishable key to flutter_stripe
+  Stripe.publishableKey =
+      'pk_test_51OC3pTHsw39B3mjXoIlcZy7EoYeVaw03oCn4rWrQqYQvpOr3HAYMVHMrX9TvQKiAeXZE5wY3KxwhKeHxBMBtDTS300BwRzZLNb';
+
+  //Load our .env file that contains our Stripe Secret key
+  await dotenv.load(fileName: "assets/.env");
+
   runApp(const MyApp());
 }
 
