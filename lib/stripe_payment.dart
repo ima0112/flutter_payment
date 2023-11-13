@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_payment/main.dart';
+import 'package:flutter_payment/widgets.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
@@ -41,6 +43,11 @@ class StripePaymnet {
   displayPaymentSheet() async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
+        showDialog(
+          context: navigatorKey.currentContext!,
+          builder: (_) => const SuccessDialog(),
+        );
+
         //Clear paymentIntent variable after successful payment
         paymentIntent = null;
       }).onError((error, stackTrace) {
@@ -49,6 +56,11 @@ class StripePaymnet {
     } on StripeException catch (e) {
       if (kDebugMode) {
         print('Error is:---> $e');
+
+        showDialog(
+          context: navigatorKey.currentContext!,
+          builder: (_) => const FailedDialog(),
+        );
       }
     } catch (e) {
       if (kDebugMode) {
