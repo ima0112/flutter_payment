@@ -29,6 +29,7 @@ class StripePaymnet {
     try {
       paymentIntent = await _createPaymentIntent('100', 'USD');
 
+      //STEP 2 
       //Initialize Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
@@ -75,6 +76,7 @@ class StripePaymnet {
     }
   }
 
+  //STEP 1
   ///Sends a post request to Stripe with a body containing
   ///the currency we are paying in and the amount.
   ///In response, Stripe returns a payment intent.
