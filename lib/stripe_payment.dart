@@ -20,9 +20,14 @@ class StripePaymnet {
 
   StripePaymnet._internal();
 
+  ///Initializes and displays a payment sheet.
+  ///This will be used to create the modal of the
+  ///payment sheet where we will fill in our card details and pay.
+  ///We pass the customer_secret obtained from the
+  ///payment intent from the previous step.
   Future<void> makePayment() async {
     try {
-      paymentIntent = await createPaymentIntent('100', 'USD');
+      paymentIntent = await _createPaymentIntent('100', 'USD');
 
       //Initialize Payment Sheet
       await Stripe.instance
@@ -34,13 +39,14 @@ class StripePaymnet {
                   merchantDisplayName: 'Ikay'))
           .then((value) {});
 
-      displayPaymentSheet();
+      _displayPaymentSheet();
     } catch (err) {
       throw Exception(err);
     }
   }
 
-  displayPaymentSheet() async {
+  ///Displays a payment sheet
+  _displayPaymentSheet() async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
         showDialog(
@@ -69,7 +75,10 @@ class StripePaymnet {
     }
   }
 
-  createPaymentIntent(String amount, String currency) async {
+  ///Sends a post request to Stripe with a body containing
+  ///the currency we are paying in and the amount.
+  ///In response, Stripe returns a payment intent.
+  _createPaymentIntent(String amount, String currency) async {
     try {
       //Request body
       Map<String, dynamic> body = {
