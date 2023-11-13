@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_payment/home_page.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   //Initialize Flutter Binding
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
