@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -30,8 +31,29 @@ class StripePaymnet {
                   style: ThemeMode.dark,
                   merchantDisplayName: 'Ikay'))
           .then((value) {});
+
+      displayPaymentSheet();
     } catch (err) {
       throw Exception(err);
+    }
+  }
+
+  displayPaymentSheet() async {
+    try {
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        //Clear paymentIntent variable after successful payment
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } on StripeException catch (e) {
+      if (kDebugMode) {
+        print('Error is:---> $e');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('$e');
+      }
     }
   }
 
